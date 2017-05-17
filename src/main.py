@@ -47,15 +47,12 @@ def main(argv):
         sys.exit()
 
     try:
-        opts, args = getopt.getopt(argv, "ht:a:b:i", ["TIMEZONE=", "START_DATE=", "END_DATE", "ID"])
+        opts, args = getopt.getopt(argv, ":t:a:b:i", ["TIMEZONE=", "START_DATE=", "END_DATE", "ID"])
     except getopt.GetoptError:
-        print('wrong arguments usage: main.py -t <TIMEZONE> -a <START_DATE> -b <END_DATE> -i <TWITTER_ID')
+        print('get opt error')
         sys.exit(2)
     for opt, arg in opts:
-        if opt == '-h':
-            print('usage: main.py -t <TIMEZONE> -a <START_DATE> -b <END_DATE> -i <TWITTER_ID')
-            sys.exit()
-        elif opt in ("-t", "--t timezone"):
+        if opt in ("-t", "--t timezone"):
             timezone = arg
         elif opt in ("-a", "--a start_date"):
             start_date = arg
