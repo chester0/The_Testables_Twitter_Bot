@@ -8,6 +8,8 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+.idea/
+ass3.iml
 env/
 build/
 develop-eggs/
