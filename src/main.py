@@ -30,7 +30,9 @@
 import tweepy
 import sys
 import getopt
-
+from tweetfetcher import TweetFetcher
+from timezone import TimeZoneConverter
+from datetime import datetime
 
 def main(argv):
     timezone = ''
@@ -97,3 +99,9 @@ print("Name:", user.name)
 print("Location:", user.location)
 print("Following:", user.friends_count)
 print("Followers:", user.followers_count)
+
+tz = TimeZoneConverter("+00:00")
+t = TweetFetcher(api, 'realDonaldTrump', datetime(2017, 4, 1), datetime(2017, 5, 17), tz)
+statuses = t.fetch()
+print("page:" + str(t.current_page))
+print("count:" + str(len(statuses)))
