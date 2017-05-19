@@ -1,12 +1,13 @@
 import tweepy
 from datetime import date, datetime
 
-#A Class which fetches tweets of the given user from start_date to end_date
+
+# A Class which fetches tweets of the given user from start_date to end_date
 class TweetFetcher():
 
     def __init__(self, api, id, start_date, end_date, converter):
 
-        #Make sure start and end dates are date objects and not strings
+        # Make sure start and end dates are date objects and not strings
         if not isinstance(start_date, date):
             raise TypeError("Start Date must be a date object")
         if not isinstance(end_date, date):
@@ -18,7 +19,7 @@ class TweetFetcher():
         self.end_date = end_date
         self.converter = converter
 
-        #Local variables needed to track the tweets
+        # Local variables needed to track the tweets
         self.last_tweet_id = None
         self.tweets = []
         self.current_page = 0

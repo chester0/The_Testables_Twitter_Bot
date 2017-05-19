@@ -29,44 +29,15 @@
 
 import tweepy
 import sys
-import getopt
 from tweetfetcher import TweetFetcher
 from timezone import TimeZoneConverter
+from arg_parser import ArgParser
 from datetime import datetime
 
+
 def main(argv):
-    timezone = ''
-    start_date = ''
-    end_date = ''
-    twitter_id = ''
 
-    # check arguments
-    print('Number of arguments:', len(sys.argv), 'arguments.')
-    print('Argument List:', str(sys.argv))
-
-    if len(sys.argv) != 9:
-        print('wrong number of arguments. Usage: main.py -t <TIMEZONE> -a <START_DATE> -b <END_DATE> -i <TWITTER_ID')
-        sys.exit()
-
-    try:
-        opts, args = getopt.getopt(argv, ":t:a:b:i", ["TIMEZONE=", "START_DATE=", "END_DATE", "ID"])
-    except getopt.GetoptError:
-        print('get opt error')
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt in ("-t", "--t timezone"):
-            timezone = arg
-        elif opt in ("-a", "--a start_date"):
-            start_date = arg
-        elif opt in ("-b", "--b end_date"):
-            end_date = arg
-        elif opt in ("-a", "--a start_date"):
-            start_date = arg
-
-    print('Timezone:', timezone)
-    print('Start date:', start_date)
-    print('End date:', end_date)
-    print('Twitter ID:', twitter_id)
+    ArgParser(argv)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
@@ -81,10 +52,6 @@ access_token_secret = 'mv7WAAFZ1MHIQX22zl8q8YVw138GuGXDuqO5yu7LDO4cr'
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
-
-# check arguments
-print('Number of arguments:', len(sys.argv), 'arguments.')
-print('Argument List:', str(sys.argv))
 
 
 # testing twitter connection
