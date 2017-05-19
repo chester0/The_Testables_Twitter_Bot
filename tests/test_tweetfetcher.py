@@ -23,7 +23,7 @@ class TestTweetFetcher(unittest.TestCase):
         with self.assertRaises(TypeError):
             t = TweetFetcher(None, "", datetime(2017, 1, 1), "2017-01-02", None)
 
-    def test_add_tweet_between_bounds(self):
+    def test_add_tweet_on_boundary_values(self):
         tz = TimeZoneConverter("+00:00")
         start = datetime(2017, 1, 2)
         end = datetime(2017, 1, 3)
@@ -39,7 +39,7 @@ class TestTweetFetcher(unittest.TestCase):
         self.assertTrue(upper in t.tweets)
         self.assertTrue(lower in t.tweets)
 
-    def test_add_tweet_no_timezone(self):
+    def test_add_tweet_with_UTC_timezone(self):
         tz = TimeZoneConverter("+00:00")
         start = datetime(2017, 1, 2)
         end = datetime(2017, 1, 3)
@@ -163,7 +163,7 @@ class TestTweetFetcher(unittest.TestCase):
         end = datetime(2017, 1, 3)
         t = TweetFetcher(api, "id", start, end, tz)
 
-        #Only the between tweet should be returned
+        #No tweets should be returned
         results = t.fetch()
         self.assertEqual(len(results), 0)
 

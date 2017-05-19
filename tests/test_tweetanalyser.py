@@ -54,7 +54,7 @@ class TestTweetAnalyser(unittest.TestCase):
         t = TweetAnalyser([t1, t2, t3], tz)
         frequencies = t.getFrequecies()
 
-        #There should be 2 tweets at 23 and 1 tweet at 1 (-1 to utc)
+        #There should be 2 tweets at 23 and 1 tweet at 0 (-1 to utc)
         for key, value in frequencies.items():
             if key == 23:
                 self.assertEqual(value, 2)
