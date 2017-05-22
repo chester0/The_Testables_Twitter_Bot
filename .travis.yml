@@ -4,7 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - coverage -m unittest discover tests
+  - coverage run -m unittest discover tests
 after_success:
   - coverage report -m
 notifications:
