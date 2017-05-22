@@ -1,17 +1,17 @@
 import unittest
 from unittest.mock import patch, Mock
-
+from src.timezone import TimeZoneConverter
+from src.tweetanalyser import TweetAnalyser
 from datetime import datetime,timedelta
 import sys
 sys.path.append("..")
 
-from src.timezone import TimeZoneConverter
-from src.tweetanalyser import TweetAnalyser
 
 class MockTweet():
     def __init__(self, id, created_at):
         self.id = id
         self.created_at = created_at
+
 
 class TestTweetAnalyser(unittest.TestCase):
 
@@ -20,10 +20,10 @@ class TestTweetAnalyser(unittest.TestCase):
         t = TweetAnalyser([], tz)
         frequencies = t.getFrequecies()
 
-        #Must be 24 values, as there are 24 hours in a day
+        # Must be 24 values, as there are 24 hours in a day
         self.assertEqual(len(frequencies), 24)
 
-        #Since no tweets were parsed then the frequencies should be 0
+        # Since no tweets were parsed then the frequencies should be 0
         for key, value in frequencies.items():
             self.assertEqual(value, 0)
 
@@ -36,7 +36,7 @@ class TestTweetAnalyser(unittest.TestCase):
         t = TweetAnalyser([t1, t2, t3], tz)
         frequencies = t.getFrequecies()
 
-        #There should be 2 tweets at 1 and 1 tweet at 2
+        # There should be 2 tweets at 1 and 1 tweet at 2
         for key, value in frequencies.items():
             if key == 1:
                 self.assertEqual(value, 2)
@@ -54,7 +54,7 @@ class TestTweetAnalyser(unittest.TestCase):
         t = TweetAnalyser([t1, t2, t3], tz)
         frequencies = t.getFrequecies()
 
-        #There should be 2 tweets at 23 and 1 tweet at 0 (-1 to utc)
+        # There should be 2 tweets at 23 and 1 tweet at 0 (-1 to utc)
         for key, value in frequencies.items():
             if key == 23:
                 self.assertEqual(value, 2)

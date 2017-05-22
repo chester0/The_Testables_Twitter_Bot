@@ -1,7 +1,8 @@
 from datetime import date, datetime
+# Analyse an array of tweets and construct a frequency dictionary from them
 
-#Analyse an array of tweets and construct a frequency dictionary from them
-class TweetAnalyser():
+
+class TweetAnalyser:
     def __init__(self, tweets, converter):
         self.tweets = tweets
         self.converter = converter
@@ -9,11 +10,11 @@ class TweetAnalyser():
     def getFrequecies(self):
         frequencies = {}
 
-        #Initialise the frequencies to 0
+        # Initialise the frequencies to 0
         for i in range(24):
             frequencies[i] = 0
 
-        #Go through the tweets and update the frequencies
+        # Go through the tweets and update the frequencies
         for tweet in self.tweets:
             tz_date = self.converter.convert(tweet.created_at)
             frequencies[tz_date.hour] += 1

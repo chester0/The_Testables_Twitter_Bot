@@ -5,31 +5,35 @@ import sys
 
 class ArgParser:
 
+    timezone = ""
+    start_date = ""
+    end_date = ""
+    twitter_id = ""
+    arg_length = ""
+
     def __init__(self, argv):
+
         try:
             opts, args = getopt.getopt(argv, ":t:a:b:i:", ["TIMEZONE=", "START_DATE=", "END_DATE", "ID"])
         except getopt.GetoptError:
             print('get opt error')
             sys.exit(2)
+        self.arg_length = len(argv)
         for opt, arg in opts:
             if opt in ("-t", "--t timezone"):
-                timezone = arg
+                self.timezone = arg
             elif opt in ("-a", "--a start_date"):
-                start_date = arg
+                self.start_date = arg
             elif opt in ("-b", "--b end_date"):
-                end_date = arg
+                self.end_date = arg
             elif opt in ("-a", "--a start_date"):
-                start_date = arg
+                self.start_date = arg
             elif opt in ("-i", "--a twitter_id"):
-                twitter_id = arg
+                self.twitter_id = arg
 
-            # check arguments
-            if len(sys.argv) != 9:
-                print('wrong number of arguments. Usage: main.py -t <TIMEZONE> -a <START_DATE> -b <END_DATE> -i <TWITTER_ID')
-                # sys.exit()
-            print('Number of arguments:', len(sys.argv), 'arguments.')
-            print('Argument List:', str(sys.argv))
-            print('Timezone:', timezone)
-            print('Start date:', start_date)
-            print('End date:', end_date)
-            print('Twitter ID:', twitter_id)
+        # print('Number of arguments:', self.arg_length, 'arguments.')
+        # print('Argument List:', str(argv))
+        # print('Timezone:', self.timezone)
+        # print('Start date:', self.start_date)
+        # print('End date:', self.end_date)
+        # print('Twitter ID:', self.twitter_id)
