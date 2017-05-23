@@ -18,7 +18,7 @@ class TestTweetAnalyser(unittest.TestCase):
     def test_frequencies_should_be_set_to_zero(self):
         tz = TimeZoneConverter("+00:00")
         t = TweetAnalyser([], tz)
-        frequencies = t.getFrequecies()
+        frequencies = t.getFrequencies()
 
         # Must be 24 values, as there are 24 hours in a day
         self.assertEqual(len(frequencies), 24)
@@ -34,7 +34,7 @@ class TestTweetAnalyser(unittest.TestCase):
 
         tz = TimeZoneConverter("+00:00")
         t = TweetAnalyser([t1, t2, t3], tz)
-        frequencies = t.getFrequecies()
+        frequencies = t.getFrequencies()
 
         # There should be 2 tweets at 1 and 1 tweet at 2
         for key, value in frequencies.items():
@@ -52,7 +52,7 @@ class TestTweetAnalyser(unittest.TestCase):
 
         tz = TimeZoneConverter("-01:00")
         t = TweetAnalyser([t1, t2, t3], tz)
-        frequencies = t.getFrequecies()
+        frequencies = t.getFrequencies()
 
         # There should be 2 tweets at 23 and 1 tweet at 0 (-1 to utc)
         for key, value in frequencies.items():
