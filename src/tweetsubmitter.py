@@ -5,6 +5,7 @@ if os.environ.get('DISPLAY', '') == '':
     print('no display found. Using non-interactive Agg backend')
     mpl.use('Agg')
 
+# noinspection PyPep8
 import matplotlib.pyplot as plt
 
 

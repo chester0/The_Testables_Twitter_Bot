@@ -1,10 +1,8 @@
 import unittest
 import os.path
-import sys
 import datetime
 from unittest.mock import patch
-from src.tweetsubmitter import TweetSubmitter
-sys.path.append("..")
+from ..src.tweetsubmitter import TweetSubmitter
 
 
 class TestTweetSubmitter(unittest.TestCase):
@@ -25,8 +23,8 @@ class TestTweetSubmitter(unittest.TestCase):
         self.assertTrue(os.path.exists('graph.png'))
 
     @patch('tweepy.API')
-    def test_submitting(self, MockAPI):
-        api = MockAPI()
+    def test_submitting(self, mock_api):
+        api = mock_api()
         api.update_with_media.return_value = []
         start_date = end_date = datetime.date.today()
         TweetSubmitter(api, "Me", start_date, end_date, {0: 1, 1: 2, 2: 3}).submit()

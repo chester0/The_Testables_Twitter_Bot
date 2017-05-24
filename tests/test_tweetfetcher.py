@@ -1,10 +1,8 @@
 import unittest
 from unittest.mock import patch
 from datetime import datetime
-from src.timezone import TimeZoneConverter
-from src.tweetfetcher import TweetFetcher
-import sys
-sys.path.append("..")
+from ..src.timezone import TimeZoneConverter
+from ..src.tweetfetcher import TweetFetcher
 
 
 class MockTweet:
@@ -97,8 +95,8 @@ class TestTweetFetcher(unittest.TestCase):
         self.assertTrue(between in t.tweets)
 
     @patch('tweepy.API')
-    def test_fetch_resets_variables(self, MockAPI):
-        api = MockAPI()
+    def test_fetch_resets_variables(self, mock_api):
+        api = mock_api()
         api.user_timeline.return_value = []
 
         start = datetime(2017, 1, 2)
@@ -109,13 +107,13 @@ class TestTweetFetcher(unittest.TestCase):
         t.tweets = [1, 2]
         t.current_page = 1
 
-        results = t.fetch()
+        t.fetch()
         self.assertEqual(len(t.tweets), 0)
         self.assertEqual(t.current_page, 0)
 
     @patch('tweepy.API')
-    def test_fetch_api_returns_nothing(self, MockAPI):
-        api = MockAPI()
+    def test_fetch_api_returns_nothing(self, mock_api):
+        api = mock_api()
         api.user_timeline.return_value = []
 
         start = datetime(2017, 1, 2)
@@ -128,13 +126,13 @@ class TestTweetFetcher(unittest.TestCase):
         self.assertTrue(len(results) == 0)
 
     @patch('tweepy.API')
-    def test_fetch_api_returns_tweets(self, MockAPI):
+    def test_fetch_api_returns_tweets(self, mock_api):
 
         before = MockTweet(0, datetime(2017, 1, 1))
         between = MockTweet(1, datetime(2017, 1, 2, 12))
         after = MockTweet(2, datetime(2017, 1, 4))
 
-        api = MockAPI()
+        api = mock_api()
         api.user_timeline.return_value = [after, between, before]
 
         tz = TimeZoneConverter("+00:00")
@@ -148,13 +146,13 @@ class TestTweetFetcher(unittest.TestCase):
         self.assertTrue(between in results)
 
     @patch('tweepy.API')
-    def test_fetch_api_should_terminate_if_tweet_is_before_start_date(self, MockAPI):
+    def test_fetch_api_should_terminate_if_tweet_is_before_start_date(self, mock_api):
 
         before = MockTweet(0, datetime(2017, 1, 1))
         between = MockTweet(1, datetime(2017, 1, 2, 12))
         after = MockTweet(2, datetime(2017, 1, 4))
 
-        api = MockAPI()
+        api = mock_api()
         api.user_timeline.return_value = [before, between, after]
 
         tz = TimeZoneConverter("+00:00")
@@ -167,13 +165,13 @@ class TestTweetFetcher(unittest.TestCase):
         self.assertEqual(len(results), 0)
 
     @patch('tweepy.API')
-    def test_fetch_api_recursively_fetches_tweets(self, MockAPI):
+    def test_fetch_api_recursively_fetches_tweets(self, mock_api):
 
         before = MockTweet(0, datetime(2017, 1, 1))
         between = MockTweet(1, datetime(2017, 1, 2, 12))
         after = MockTweet(2, datetime(2017, 1, 4))
 
-        api = MockAPI()
+        api = mock_api()
         api.user_timeline.side_effect = [[after], [between], [before]]
 
         tz = TimeZoneConverter("+00:00")

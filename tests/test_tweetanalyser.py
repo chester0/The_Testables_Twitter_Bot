@@ -1,9 +1,7 @@
 import unittest
-import sys
-from src.timezone import TimeZoneConverter
-from src.tweetanalyser import TweetAnalyser
+from ..src.timezone import TimeZoneConverter
+from ..src.tweetanalyser import TweetAnalyser
 from datetime import datetime
-sys.path.append("..")
 
 
 class MockTweet:

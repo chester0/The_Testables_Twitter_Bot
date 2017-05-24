@@ -30,11 +30,11 @@
 #
 import tweepy
 import sys
-from .tweetfetcher import TweetFetcher
-from .tweetanalyser import TweetAnalyser
-from .timezone import TimeZoneConverter
-from .tweetsubmitter import TweetSubmitter
-from .argparser import ArgParser
+from src.tweetfetcher import TweetFetcher
+from src.tweetanalyser import TweetAnalyser
+from src.timezone import TimeZoneConverter
+from src.tweetsubmitter import TweetSubmitter
+from src.argparser import ArgParser
 
 consumer_key = 'nQr62OZwOWTK5WxGFFwNgo8Ir'
 consumer_secret = '768VVh1exJAvMXEMIAlSx9Sk84EKI1hG6cOC83zELZPnOCQjXN'

@@ -1,8 +1,6 @@
 import unittest
 from datetime import datetime, timedelta
-from src.timezone import TimeZoneConverter
-import sys
-sys.path.append("..")
+from ..src.timezone import TimeZoneConverter
 
 
 class TestTimeZone(unittest.TestCase):
@@ -10,11 +8,11 @@ class TestTimeZone(unittest.TestCase):
     def test_exceptions(self):
         # Should only accept strings
         with self.assertRaises(TypeError):
-            t = TimeZoneConverter(1)
+            TimeZoneConverter(1)
 
         # Should only accepts strings with format -HH:MM or +HH:MM
         with self.assertRaises(ValueError):
-            t = TimeZoneConverter("02:30")
+            TimeZoneConverter("02:30")
 
     def test_offset_generation(self):
         # Should correctly generate the offsets

@@ -1,5 +1,5 @@
 import unittest
-from src.argparser import ArgParser
+from ..src.argparser import ArgParser
 
 
 # test command line arguments
@@ -25,7 +25,7 @@ class TestParser (unittest.TestCase):
         # one more than it should
         with self.assertRaises(ValueError):
             ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump',
-                               'extra'])
+                       'extra'])
 
     def test_timezone_format_sign(self):
         # invalid character
