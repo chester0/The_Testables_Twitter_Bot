@@ -4,7 +4,7 @@ frequency of tweeting at particular times of the day, and
 posts the graph as a tweet
 
 
-##Command Line Arguments:
+## Command Line Arguments:
 ```
 -t TIMEZONE : the timezone of the tweeter for analysis purposes. TIMEZONE should be
 represented as +/- HH:MM (that is, if a tweet occurred at 13:45 UTC, and their timezone was
@@ -22,7 +22,7 @@ number of tweets per hour on the Y-Axis.
 ```
 
 
-##Twitter Account
+## Twitter Account
 
 Twitter account used: @The_Testables_Bot: https://twitter.com/TheTestablesBot
 to change twitter account edit:
