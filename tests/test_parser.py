@@ -16,7 +16,8 @@ class TestParser (unittest.TestCase):
 
     def test_too_many_arguments(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump', 'extra'])
+            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump',
+                               'extra'])
 
     def test_timezone_format_sign(self):
         with self.assertRaises(ValueError):

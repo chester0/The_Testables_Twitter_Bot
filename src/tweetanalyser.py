@@ -1,4 +1,4 @@
-from datetime import date, datetime
+
 
 # Analyse an array of tweets and construct a frequency dictionary from them
 class TweetAnalyser:
@@ -6,7 +6,7 @@ class TweetAnalyser:
         self.tweets = tweets
         self.converter = converter
 
-    def getFrequencies(self):
+    def get_frequencies(self):
         frequencies = {}
 
         # Initialise the frequencies to 0

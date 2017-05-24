@@ -62,7 +62,7 @@ def main(argv):
         tweets = fetcher.fetch()
 
         print("Analysing and Building Graph")
-        frequencies = TweetAnalyser(tweets, converter).getFrequencies()
+        frequencies = TweetAnalyser(tweets, converter).get_frequencies()
         submitter = TweetSubmitter(api, args.twitter_id, args.start_date, args.end_date, frequencies)
 
         print("Tweeting")

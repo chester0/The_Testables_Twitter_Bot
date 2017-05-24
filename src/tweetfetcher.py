@@ -1,10 +1,10 @@
-import tweepy
-from datetime import date, datetime
+from datetime import date
 
-#A Class which fetches tweets of the given user from start_date to end_date
-class TweetFetcher():
 
-    def __init__(self, api, id, start_date, end_date, converter):
+# A Class which fetches tweets of the given user from start_date to end_date
+class TweetFetcher:
+
+    def __init__(self, api, user_id, start_date, end_date, converter):
 
         # Make sure start and end dates are date objects and not strings
         if not isinstance(start_date, date):
@@ -13,7 +13,7 @@ class TweetFetcher():
             raise TypeError("End Date must be a date object")
 
         self.api = api
-        self.id = id
+        self.id = user_id
         self.start_date = start_date
         self.end_date = end_date
         self.converter = converter
@@ -25,7 +25,7 @@ class TweetFetcher():
 
     # Add a tweet if it was posted between start_date and end_date
     # Returns 0 if success, -1 if tweet was posted before start_date and 1 if tweet was posted after end_date
-    def _addTweet(self, tweet):
+    def add_tweet(self, tweet):
         # Convert the utc to timezone that was set
         utc_date = tweet.created_at
         tz_date = self.converter.convert(utc_date)
@@ -62,7 +62,7 @@ class TweetFetcher():
         for status in statuses:
             # Check that we haven't gone past the start date
             # This is because tweets are returned from most recent first
-            if self._addTweet(status) < 0:
+            if self.add_tweet(status) < 0:
                 self.last_tweet_id = None
                 return self.tweets
 

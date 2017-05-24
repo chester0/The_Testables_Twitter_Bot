@@ -1,15 +1,14 @@
 import unittest
-from unittest.mock import patch, Mock
+import sys
 from src.timezone import TimeZoneConverter
 from src.tweetanalyser import TweetAnalyser
-from datetime import datetime,timedelta
-import sys
+from datetime import datetime
 sys.path.append("..")
 
 
-class MockTweet():
-    def __init__(self, id, created_at):
-        self.id = id
+class MockTweet:
+    def __init__(self, user_id, created_at):
+        self.id = user_id
         self.created_at = created_at
 
 
@@ -18,7 +17,7 @@ class TestTweetAnalyser(unittest.TestCase):
     def test_frequencies_should_be_set_to_zero(self):
         tz = TimeZoneConverter("+00:00")
         t = TweetAnalyser([], tz)
-        frequencies = t.getFrequencies()
+        frequencies = t.get_frequencies()
 
         # Must be 24 values, as there are 24 hours in a day
         self.assertEqual(len(frequencies), 24)
@@ -34,7 +33,7 @@ class TestTweetAnalyser(unittest.TestCase):
 
         tz = TimeZoneConverter("+00:00")
         t = TweetAnalyser([t1, t2, t3], tz)
-        frequencies = t.getFrequencies()
+        frequencies = t.get_frequencies()
 
         # There should be 2 tweets at 1 and 1 tweet at 2
         for key, value in frequencies.items():
@@ -52,7 +51,7 @@ class TestTweetAnalyser(unittest.TestCase):
 
         tz = TimeZoneConverter("-01:00")
         t = TweetAnalyser([t1, t2, t3], tz)
-        frequencies = t.getFrequencies()
+        frequencies = t.get_frequencies()
 
         # There should be 2 tweets at 23 and 1 tweet at 0 (-1 to utc)
         for key, value in frequencies.items():

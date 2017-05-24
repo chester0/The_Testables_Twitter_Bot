@@ -22,7 +22,7 @@ class TestTimeZone(unittest.TestCase):
         expected = timedelta(hours=2, minutes=30)
         self.assertEqual(t.offset, expected)
 
-        # Since we have to subtract 2:30, we have to split it up so each component is subtracted aswell
+        # Since we have to subtract 2:30, we have to split it up so each component is subtracted as well
         # Thus we expect hours = -2 and minutes = -30 instead of minutes = 30 (which would add to the time delta)
         t1 = TimeZoneConverter("-02:30")
         expected1 = timedelta(hours=-2, minutes=-30)

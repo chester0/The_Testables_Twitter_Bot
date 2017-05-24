@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import patch, Mock
-from datetime import datetime,timedelta
+from unittest.mock import patch
+from datetime import datetime
 from src.timezone import TimeZoneConverter
 from src.tweetfetcher import TweetFetcher
 import sys
@@ -8,8 +8,8 @@ sys.path.append("..")
 
 
 class MockTweet:
-    def __init__(self, id, created_at):
-        self.id = id
+    def __init__(self, user_id, created_at):
+        self.id = user_id
         self.created_at = created_at
 
 
@@ -32,8 +32,8 @@ class TestTweetFetcher(unittest.TestCase):
         upper = MockTweet(0, start)
         lower = MockTweet(1, end)
 
-        self.assertEqual(t._addTweet(upper), 0)
-        self.assertEqual(t._addTweet(lower), 0)
+        self.assertEqual(t.add_tweet(upper), 0)
+        self.assertEqual(t.add_tweet(lower), 0)
 
         self.assertEqual(len(t.tweets), 2)
         self.assertTrue(upper in t.tweets)
@@ -50,9 +50,9 @@ class TestTweetFetcher(unittest.TestCase):
         between = MockTweet(1, datetime(2017, 1, 2, 12))  # Should return 0
         after = MockTweet(2, datetime(2017, 1, 4))  # Should return 1
 
-        self.assertEqual(t._addTweet(before), -1)
-        self.assertEqual(t._addTweet(between), 0)
-        self.assertEqual(t._addTweet(after), 1)
+        self.assertEqual(t.add_tweet(before), -1)
+        self.assertEqual(t.add_tweet(between), 0)
+        self.assertEqual(t.add_tweet(after), 1)
 
         # It should have added the between tweet
         self.assertEqual(len(t.tweets), 1)
@@ -69,9 +69,9 @@ class TestTweetFetcher(unittest.TestCase):
         between = MockTweet(1, datetime(2017, 1, 1, 22, 30))  # Should return 0 as it adds to 2017, 1, 2 Local
         after = MockTweet(2, datetime(2017, 1, 3))  # Should return 1 as it goes past 2017, 1, 3 Local
 
-        self.assertEqual(t._addTweet(before), -1)
-        self.assertEqual(t._addTweet(between), 0)
-        self.assertEqual(t._addTweet(after), 1)
+        self.assertEqual(t.add_tweet(before), -1)
+        self.assertEqual(t.add_tweet(between), 0)
+        self.assertEqual(t.add_tweet(after), 1)
 
         # It should have added the between tweet
         self.assertEqual(len(t.tweets), 1)
@@ -88,9 +88,9 @@ class TestTweetFetcher(unittest.TestCase):
         between = MockTweet(1, datetime(2017, 1, 2, 1, 30))  # Should return 0
         after = MockTweet(2, datetime(2017, 1, 4))  # Should return 1
 
-        self.assertEqual(t._addTweet(before), -1)
-        self.assertEqual(t._addTweet(between), 0)
-        self.assertEqual(t._addTweet(after), 1)
+        self.assertEqual(t.add_tweet(before), -1)
+        self.assertEqual(t.add_tweet(between), 0)
+        self.assertEqual(t.add_tweet(after), 1)
 
         # It should have added the between tweet
         self.assertEqual(len(t.tweets), 1)
@@ -106,7 +106,7 @@ class TestTweetFetcher(unittest.TestCase):
         t = TweetFetcher(api, "id", start, end, None)
 
         # Check that local variables get reset
-        t.tweets = [1,2]
+        t.tweets = [1, 2]
         t.current_page = 1
 
         results = t.fetch()
