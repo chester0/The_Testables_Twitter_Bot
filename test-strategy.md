@@ -15,15 +15,15 @@ start and and date
 
 # Timezone.py
 
-Make sure offsets are generated correctly
+- Make sure offsets are generated correctly from given timezone string
  
 # Tweetanalyser.py
 
-Make sure that we generate the frequencies correctly from the passed in tweets
+- Make sure that we generate the frequencies correctly from the passed in tweets
 
 # TweetFetcher.py
 
-Make sure we correctly fetch tweets.
-Make sure when adding tweets to an array that they are in between the given dates.
+- Make sure we correctly fetch tweets.
+- Make sure when adding tweets to an array that they are in between the given dates.
 
 
