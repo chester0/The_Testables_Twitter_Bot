@@ -58,14 +58,14 @@ def main(argv):
         converter = TimeZoneConverter(args.timezone)
         fetcher = TweetFetcher(api, args.twitter_id, start_date, end_date, converter)
 
-        print("Fetching Tweets")
+        print("Fetching Tweets for: ", args.twitter_id, "From: ", start_date, "To: ", end_date)
         tweets = fetcher.fetch()
 
         print("Analysing and Building Graph")
         frequencies = TweetAnalyser(tweets, converter).get_frequencies()
         submitter = TweetSubmitter(api, args.twitter_id, args.start_date, args.end_date, frequencies)
 
-        print("Tweeting")
+        print("Tweeting...")
         submitter.submit()
 
         print("Finished!!")

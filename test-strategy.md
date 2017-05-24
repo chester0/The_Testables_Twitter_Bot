@@ -16,12 +16,13 @@ receiving the tweets.
 Some tests were writen before the code, and code was make to pass the tests
 then more test were written to try to make them to fail
 
-## Arg_parser
+## Argparser.py
 Arguments will be validated in this class before passed on to the other
 cases to avoid duplicate testing
 
 
-- Checks if timezone is valid and the format is consistent with the spec
+- Checks if timezone is valid and the format is consistent with the spec, upper/lower boundaries,
+and mid points
 - Checks if the date format is correct (YYYY-MM-DD) for both
 start and and date
 - Checks number of arguments is 8 or 7 (timezone optional)
