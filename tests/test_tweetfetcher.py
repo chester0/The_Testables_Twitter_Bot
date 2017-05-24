@@ -18,10 +18,10 @@ class TestTweetFetcher(unittest.TestCase):
     def test_date_exceptions(self):
         # Should only accept dates for start_date and end_date
         with self.assertRaises(TypeError):
-            t = TweetFetcher(None, "", "2017-01-02", None, None)
+            TweetFetcher(None, "", "2017-01-02", None, None)
 
         with self.assertRaises(TypeError):
-            t = TweetFetcher(None, "", datetime(2017, 1, 1), "2017-01-02", None)
+            TweetFetcher(None, "", datetime(2017, 1, 1), "2017-01-02", None)
 
     def test_add_tweet_on_boundary_values(self):
         tz = TimeZoneConverter("+00:00")

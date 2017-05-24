@@ -7,18 +7,22 @@ class TestParser (unittest.TestCase):
 
     # argument list should be string
     def test_type_of_arguments(self):
-        # not list
+        # number
         with self.assertRaises(TypeError):
             ArgParser(1)
-        # no arguments
+        # string
         with self.assertRaises(TypeError):
-            ArgParser()
+            ArgParser("pepas")
+        # empty list
+        with self.assertRaises(ValueError):
+            ArgParser([""])
 
     def test_too_little_arguments(self):
         with self.assertRaises(ValueError):
             ArgParser(['-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_too_many_arguments(self):
+        # one more than it should
         with self.assertRaises(ValueError):
             ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump',
                                'extra'])
@@ -27,6 +31,9 @@ class TestParser (unittest.TestCase):
         # invalid character
         with self.assertRaises(ValueError):
             ArgParser(['-t', '/12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+        # no sign at all
+        with self.assertRaises(ValueError):
+            ArgParser(['-t', '12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
         # empty variable
         with self.assertRaises(ValueError):
             ArgParser(['-t', '', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
@@ -48,6 +55,7 @@ class TestParser (unittest.TestCase):
             ArgParser(['-t', '-00:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_timezone_format_colon(self):
+        # colon missing
         with self.assertRaises(ValueError):
             ArgParser(['-t', '-1200', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 

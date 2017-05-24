@@ -52,16 +52,15 @@ def main(argv):
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
 
-        start_date = datetime.strptime(args.start_date, '%Y-%m-%d')
-        end_date = datetime.strptime(args.end_date, '%Y-%m-%d')
+        print("Fetching Tweets for: ", args.twitter_id, "From: ", start_date, "To: ", end_date)
 
         converter = TimeZoneConverter(args.timezone)
-        fetcher = TweetFetcher(api, args.twitter_id, start_date, end_date, converter)
+        fetcher = TweetFetcher(api, args.twitter_id, args.start_date, args.end_date, converter)
 
-        print("Fetching Tweets for: ", args.twitter_id, "From: ", start_date, "To: ", end_date)
+        print("Fetching...")
         tweets = fetcher.fetch()
 
-        print("Analysing and Building Graph")
+        print("Analysing and Building Graph...")
         frequencies = TweetAnalyser(tweets, converter).get_frequencies()
         submitter = TweetSubmitter(api, args.twitter_id, args.start_date, args.end_date, frequencies)
 
