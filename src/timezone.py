@@ -22,4 +22,4 @@ class TimeZoneConverter():
     #Convert a UTC date to the set timezone of the converter
     def convert(self, date):
         return date + self.offset
-        
+

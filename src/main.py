@@ -26,7 +26,8 @@
 # The graph should be a simple line graph showing the time of day on the X-Axis and the average
 # number of tweets per hour on the Y-Axis.
 #
-
+# Twitter account used: @The_Testables_Bot
+#
 import tweepy
 import sys
 from tweetfetcher import TweetFetcher
@@ -40,6 +41,7 @@ consumer_key = 'nQr62OZwOWTK5WxGFFwNgo8Ir'
 consumer_secret = '768VVh1exJAvMXEMIAlSx9Sk84EKI1hG6cOC83zELZPnOCQjXN'
 access_token = '864747008111788033-eFZKCN7HYr3CxiEyZXNEtbCSmIVjc1V'
 access_token_secret = 'mv7WAAFZ1MHIQX22zl8q8YVw138GuGXDuqO5yu7LDO4cr'
+
 
 def main(argv):
     try:
@@ -68,7 +70,7 @@ def main(argv):
 
         print("Finished!!")
     except Exception as e:
-        print("An error occured: " + str(e))
+        print("An error occurred: " + str(e))
 
 if __name__ == "__main__":
     main(sys.argv[1:])

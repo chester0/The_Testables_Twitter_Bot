@@ -1,59 +1,54 @@
 import unittest
-import datetime
 from src.arg_parser import ArgParser
 
 
 # test command line arguments
 class TestParser (unittest.TestCase):
 
-    arguments = ['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump']
-    argument_parser = ArgParser(arguments)
+    # argument list should be string
+    def test_type_of_arguments(self):
+        with self.assertRaises(TypeError):
+            arg_p = ArgParser(1)
 
-    # should have 8 or 7 arguments
-    # timezone is optional, local timezone is assumed if missing
-    def test_number_of_arguments(self):
-        # check arguments
-        if self.argument_parser.arg_length != 8 and self.argument_parser.arg_length != 7:
-            raise ValueError('Wrong number of arguments: ', self.argument_parser.arg_length)
+    def test_too_little_arguments(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
-    # represented as +/-HH:MM
-    # follows after -t
-    def test_timezone_argument(self):
-        if self.argument_parser.timezone[:1] != '+' and self.argument_parser.timezone[:1] != '-':
-            raise ValueError('No leading sign on timezone, found: ', self.argument_parser.timezone[:1])
+    def test_too_many_arguments(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump', 'extra'])
 
-        if self.argument_parser.timezone[:1] == '+':
-            if int(self.argument_parser.timezone[1:3]) > 14 or int(self.argument_parser.timezone[1:3]) < 0:
-                raise ValueError('Invalid (+UTC) timezone. found: ', self.argument_parser.timezone[1:3])
+    def test_timezone_format_sign(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '/12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
-        if self.argument_parser.timezone[:1] == '-':
-            if int(self.argument_parser.timezone[1:3]) > 12 or int(self.argument_parser.timezone[1:3]) < 1:
-                raise ValueError('Invalid (-UTC) timezone. found: ', self.argument_parser.timezone[1:3])
+    def test_timezone_format_upper_value(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '+66:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
-        if self.argument_parser.timezone[3:4] != ':':
-            raise ValueError('Invalid timezone format missing ":" found: ', self.argument_parser.timezone[3:4])
+    def test_timezone_format_lower_value(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '-13:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
-        if self.argument_parser.timezone[4:6] != '00':
-            raise ValueError('Invalid timezone format, minutes not 0 or not a number. Found: ',
-                             self.argument_parser.timezone[4:6])
+    def test_timezone_format_colon(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '-1200', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
-    # represented by YYYY-MM-DD
-    # follows after -a
-    def test_start_date_argument(self):
-        datetime.datetime.strptime(self.argument_parser.start_date, '%Y-%m-%d')
-        self.assertRaises(ValueError)
+    def test_timezone_format_minutes_not_zero(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '-12:11', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
-    # represented by YYYY-MM-DD
-    # follows after -b
-    def test_end_date_argument(self):
-        datetime.datetime.strptime(self.argument_parser.end_date, '%Y-%m-%d')
-        self.assertRaises(ValueError)
+    def test_date_format_start_date(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '-12:00', '-a', '16-05-2017', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
-    # starts with @
-    # follows after -i
-    def test_id_argument(self):
-        self.assertEqual(self.argument_parser.twitter_id[:1], "@")
+    def test_date_format_end_date(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '05-17-2017', '-i', '@realDonaldTrump'])
 
+    def test_twitter_id_format(self):
+        with self.assertRaises(ValueError):
+            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', 'realDonaldTrump'])
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestParser)
 unittest.TextTestRunner(verbosity=2).run(suite)
