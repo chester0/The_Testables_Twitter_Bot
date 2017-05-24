@@ -1,5 +1,5 @@
 import unittest
-from ..src.argparser import ArgParser
+from src.argparser import ArgParser
 
 
 # test command line arguments

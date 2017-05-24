@@ -2,7 +2,7 @@ import unittest
 import os.path
 import datetime
 from unittest.mock import patch
-from ..src.tweetsubmitter import TweetSubmitter
+from src.tweetsubmitter import TweetSubmitter
 
 
 class TestTweetSubmitter(unittest.TestCase):

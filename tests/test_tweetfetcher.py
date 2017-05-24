@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch
 from datetime import datetime
-from ..src.timezone import TimeZoneConverter
-from ..src.tweetfetcher import TweetFetcher
+from src.timezone import TimeZoneConverter
+from src.tweetfetcher import TweetFetcher
 
 
 class MockTweet:
