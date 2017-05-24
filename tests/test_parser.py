@@ -7,41 +7,57 @@ class TestParser (unittest.TestCase):
 
     # argument list should be string
     def test_type_of_arguments(self):
+        # not list
         with self.assertRaises(TypeError):
-            arg_p = ArgParser(1)
+            ArgParser(1)
+        # no arguments
+        with self.assertRaises(TypeError):
+            ArgParser()
 
     def test_too_little_arguments(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            ArgParser(['-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_too_many_arguments(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump',
+            ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump',
                                'extra'])
 
     def test_timezone_format_sign(self):
+        # invalid character
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '/12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            ArgParser(['-t', '/12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+        # empty variable
+        with self.assertRaises(ValueError):
+            ArgParser(['-t', '', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_timezone_format_upper_value(self):
+        # over +14:00
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '+66:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            ArgParser(['-t', '+66:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+        # +00:00
+        with self.assertRaises(ValueError):
+            ArgParser(['-t', '+00:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_timezone_format_lower_value(self):
+        # lowest possible: -12:00
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-13:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            ArgParser(['-t', '-13:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            # -00:00
+        with self.assertRaises(ValueError):
+            ArgParser(['-t', '-00:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_timezone_format_colon(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-1200', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            ArgParser(['-t', '-1200', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_timezone_format_minutes_not_zero(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-12:11', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            ArgParser(['-t', '-12:11', '-a', '2017-05-16', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_date_format_start_date(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-12:00', '-a', '16-05-2017', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
+            ArgParser(['-t', '-12:00', '-a', '16-05-2017', '-b', '2017-05-17', '-i', '@realDonaldTrump'])
 
     def test_date_format_end_date(self):
         with self.assertRaises(ValueError):

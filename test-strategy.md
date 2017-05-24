@@ -13,8 +13,10 @@ Main functions are spitted into different classes to make testing of each compon
 
 Functions that require network have been mocked out in the tests such as posting the tweet and
 receiving the tweets.
+Some tests were writen before the code, and code was make to pass the tests
+then more test were written to try to make them to fail
 
-# Arg_parser
+## Arg_parser
 Arguments will be validated in this class before passed on to the other
 cases to avoid duplicate testing
 
@@ -26,15 +28,15 @@ start and and date
 - Tests if ID starts with "@"
 
 
-# Timezone.py
+## Timezone.py
 
 - Make sure offsets are generated correctly from given timezone string
  
-# TweetAnalyser.py
+## TweetAnalyser.py
 
 - Make sure that we generate the frequencies correctly from the passed in tweets
 
-# TweetFetcher.py
+## TweetFetcher.py
 
 - Make sure we correctly fetch tweets.
 - Make sure when adding tweets to an array that they are in between the given dates.
