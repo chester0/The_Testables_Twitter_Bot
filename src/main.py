@@ -30,45 +30,45 @@
 import tweepy
 import sys
 from tweetfetcher import TweetFetcher
+from tweetanalyser import TweetAnalyser
 from timezone import TimeZoneConverter
+from tweetsubmitter import TweetSubmitter
 from arg_parser import ArgParser
 from datetime import datetime
-
-
-def main(argv):
-
-    ArgParser(argv)
-
-if __name__ == "__main__":
-    main(sys.argv[1:])
-
 
 consumer_key = 'nQr62OZwOWTK5WxGFFwNgo8Ir'
 consumer_secret = '768VVh1exJAvMXEMIAlSx9Sk84EKI1hG6cOC83zELZPnOCQjXN'
 access_token = '864747008111788033-eFZKCN7HYr3CxiEyZXNEtbCSmIVjc1V'
 access_token_secret = 'mv7WAAFZ1MHIQX22zl8q8YVw138GuGXDuqO5yu7LDO4cr'
 
-# authenticate
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+def main(argv):
+    try:
+        args = ArgParser(argv)
 
+        # authenticate
+        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth.set_access_token(access_token, access_token_secret)
+        api = tweepy.API(auth)
 
-# testing twitter connection
-public_tweets = api.home_timeline()
-# for tweet in public_tweets:
-#    print(tweet.text)
+        start_date = datetime.strptime(args.start_date, '%Y-%m-%d')
+        end_date = datetime.strptime(args.end_date, '%Y-%m-%d')
 
+        converter = TimeZoneConverter(args.timezone)
+        fetcher = TweetFetcher(api, args.twitter_id, start_date, end_date, converter)
 
-# sample code
-user = api.get_user('realDonaldTrump')
-print("Name:", user.name)
-print("Location:", user.location)
-print("Following:", user.friends_count)
-print("Followers:", user.followers_count)
+        print("Fetching Tweets")
+        tweets = fetcher.fetch()
 
-tz = TimeZoneConverter("+00:00")
-t = TweetFetcher(api, 'realDonaldTrump', datetime(2017, 4, 1), datetime(2017, 5, 17), tz)
-statuses = t.fetch()
-print("page:" + str(t.current_page))
-print("count:" + str(len(statuses)))
+        print("Analysing and Building Graph")
+        frequencies = TweetAnalyser(tweets, converter).getFrequencies()
+        submitter = TweetSubmitter(api, args.twitter_id, args.start_date, args.end_date, frequencies)
+
+        print("Tweeting")
+        submitter.submit()
+
+        print("Finished!!")
+    except Exception as e:
+        print("An error occured: " + str(e))
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
