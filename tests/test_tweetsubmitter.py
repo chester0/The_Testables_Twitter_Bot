@@ -1,6 +1,7 @@
 import unittest
 import os.path
 import sys
+import datetime
 from unittest.mock import patch
 from src.tweetsubmitter import TweetSubmitter
 sys.path.append("..")
@@ -9,7 +10,8 @@ sys.path.append("..")
 class TestTweetSubmitter(unittest.TestCase):
 
     def test_graph_building(self):
-        t = TweetSubmitter(None, "Me", "abc", "def", {0: 1, 1: 2, 2: 3})
+        start_date = end_date = datetime.date.today()
+        t = TweetSubmitter(None, "Me", start_date, end_date, {0: 1, 1: 2, 2: 3})
 
         # Check that we correctly parse the x axis values
         for key in range(3):
@@ -26,8 +28,8 @@ class TestTweetSubmitter(unittest.TestCase):
     def test_submitting(self, MockAPI):
         api = MockAPI()
         api.update_with_media.return_value = []
-
-        t = TweetSubmitter(api, "Me", "abc", "def", {0: 1, 1: 2, 2: 3}).submit()
+        start_date = end_date = datetime.date.today()
+        TweetSubmitter(api, "Me", start_date, end_date, {0: 1, 1: 2, 2: 3}).submit()
 
         api.update_with_media.assert_called_with('graph.png')
 
