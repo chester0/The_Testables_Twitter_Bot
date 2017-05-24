@@ -61,11 +61,11 @@ class TestParser (unittest.TestCase):
 
     def test_date_format_end_date(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '05-17-2017', '-i', '@realDonaldTrump'])
+            ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '05-17-2017', '-i', '@realDonaldTrump'])
 
     def test_twitter_id_format(self):
         with self.assertRaises(ValueError):
-            arg_p = ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', 'realDonaldTrump'])
+            ArgParser(['-t', '-12:00', '-a', '2017-05-16', '-b', '2017-05-17', '-i', 'realDonaldTrump'])
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestParser)
 unittest.TextTestRunner(verbosity=2).run(suite)
