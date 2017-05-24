@@ -30,12 +30,11 @@
 #
 import tweepy
 import sys
-from tweetfetcher import TweetFetcher
-from tweetanalyser import TweetAnalyser
-from timezone import TimeZoneConverter
-from tweetsubmitter import TweetSubmitter
-from arg_parser import ArgParser
-from datetime import datetime
+from .tweetfetcher import TweetFetcher
+from .tweetanalyser import TweetAnalyser
+from .timezone import TimeZoneConverter
+from .tweetsubmitter import TweetSubmitter
+from .argparser import ArgParser
 
 consumer_key = 'nQr62OZwOWTK5WxGFFwNgo8Ir'
 consumer_secret = '768VVh1exJAvMXEMIAlSx9Sk84EKI1hG6cOC83zELZPnOCQjXN'
@@ -52,12 +51,12 @@ def main(argv):
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
 
-        print("Fetching Tweets for: ", args.twitter_id, "From: ", start_date, "To: ", end_date)
+        print("Twitter ID:", args.twitter_id, "From:", args.start_date, "To:", args.end_date)
 
         converter = TimeZoneConverter(args.timezone)
-        fetcher = TweetFetcher(api, args.twitter_id, args.start_date, args.end_date, converter)
 
         print("Fetching...")
+        fetcher = TweetFetcher(api, args.twitter_id, args.start_date, args.end_date, converter)
         tweets = fetcher.fetch()
 
         print("Analysing and Building Graph...")

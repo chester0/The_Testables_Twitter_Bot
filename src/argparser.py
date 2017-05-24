@@ -26,11 +26,17 @@ class ArgParser:
             if opt in ("-t", "--t timezone"):
                 self.timezone = arg
             elif opt in ("-a", "--a start_date"):
-                self.start_date = arg
+                # start date, represented by YYYY-MM-DD
+                try:
+                    self.start_date = datetime.datetime.strptime(arg, '%Y-%m-%d')
+                except ValueError as err:
+                    raise ValueError(err)
             elif opt in ("-b", "--b end_date"):
-                self.end_date = arg
-            elif opt in ("-a", "--a start_date"):
-                self.start_date = arg
+                # end date, represented by YYYY-MM-DD
+                try:
+                    self.end_date = datetime.datetime.strptime(arg, '%Y-%m-%d')
+                except ValueError as err:
+                    raise ValueError(err)
             elif opt in ("-i", "--a twitter_id"):
                 self.twitter_id = arg
 
@@ -54,18 +60,6 @@ class ArgParser:
         if self.timezone[4:6] != '00':
             raise ValueError('Invalid timezone format, minutes not 0 or not a number. Found: ',
                              self.timezone[4:6])
-
-        # start date, represented by YYYY-MM-DD
-        try:
-            datetime.datetime.strptime(self.start_date, '%Y-%m-%d')
-        except ValueError as err:
-            raise ValueError(err)
-
-        # end date, represented by YYYY-MM-DD
-        try:
-            datetime.datetime.strptime(self.end_date, '%Y-%m-%d')
-        except ValueError as err:
-            raise ValueError(err)
 
         # test twitter_id starts with @
         if self.twitter_id[:1] != "@":

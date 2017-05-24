@@ -24,7 +24,7 @@ number of tweets per hour on the Y-Axis.
 
 ##Twitter Account
 
-Twitter account used: @The_Testables_Bot.
+Twitter account used: @The_Testables_Bot: https://twitter.com/TheTestablesBot
 to change twitter account edit:
 
 ```
@@ -45,8 +45,10 @@ main.py -t +10:00 -a 2017-05-16 -b 2017-05-17 -i @realDonaldTrump
 
 ## Sample output
 ```
-Fetching Tweets for:  @realDonaldTrump From:  2016-01-16 00:00:00 To:  2016-05-17 00:00:00
-Analysing and Building Graph
+Twitter ID:  @realDonaldTrump From:  2016-01-16 00:00:00 To:  2017-06-17 00:00:00
+Fetching...
+Analysing and Building Graph...
 Tweeting...
 Finished!!
 ```
+

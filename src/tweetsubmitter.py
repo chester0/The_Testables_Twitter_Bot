@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 # A class which constructs a line plot from frequency data and submits it
 class TweetSubmitter:
-    def __init__(self, api, user, from_string, to_string, frequencies):
+    def __init__(self, api, user, start_date, end_date, frequencies):
         self.api = api
         self.x = []
         self.y = []
@@ -19,7 +19,7 @@ class TweetSubmitter:
             self.y.append(value)
 
         # Create the graph
-        plt.title(user + ' tweets - ' + from_string + " to " + to_string)
+        plt.title(user + ' Tweets From: ' + start_date.strftime("%B %d, %Y") + " To: " + end_date.strftime("%B %d, %Y"))
         plt.xlabel('Hour of Day')
         plt.ylabel('Frequency')
         plt.xticks(range(24))
