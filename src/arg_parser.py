@@ -44,7 +44,7 @@ class ArgParser:
         if self.timezone[:1] != '+' and self.timezone[:1] != '-':
             raise ValueError('No leading sign on timezone, found: ', self.timezone[:1])
         if self.timezone[:1] == '+':
-            if int(self.timezone[1:3]) > 14 or int(self.timezone[1:3]) < 0:
+            if int(self.timezone[1:3]) > 14 or int(self.timezone[1:3]) <= 0:
                 raise ValueError('Invalid (+UTC) timezone. found: ', self.timezone[1:3])
         if self.timezone[:1] == '-':
             if int(self.timezone[1:3]) > 12 or int(self.timezone[1:3]) < 1:
