@@ -1,5 +1,11 @@
 import tweepy
-import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using non-interactive Agg backend')
+    mpl.use('Agg')
+
+import mpl.pyplot as plt
 
 #A class which constructs a line plot from frequency data and submits it
 class TweetSubmitter():
