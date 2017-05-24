@@ -40,7 +40,7 @@ pip install -r requirements.txt
 
 ## Sample run
 ```
-main.py -t +10:00 -a 2017-05-16 -b 2017-05-17 -i @realDonaldTrump
+main.py -t +10:00 -a 2010-05-16 -b 2017-05-17 -i @realDonaldTrump
 ```
 
 ## Sample output

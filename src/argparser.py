@@ -4,7 +4,6 @@ import datetime
 
 # parses command line arguments
 class ArgParser:
-
     timezone = ""
     start_date = ""
     end_date = ""
@@ -65,9 +64,3 @@ class ArgParser:
         if self.twitter_id[:1] != "@":
             raise ValueError('Invalid twitter ID: No leading @')
 
-        # print('Number of arguments:', self.arg_length, 'arguments.')
-        # print('Argument List:', str(argv))
-        # print('Timezone:', self.timezone)
-        # print('Start date:', self.start_date)
-        # print('End date:', self.end_date)
-        # print('Twitter ID:', self.twitter_id)
