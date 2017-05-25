@@ -22,7 +22,7 @@ class TweetSubmitter:
         # Create the graph
         plt.title(user + ' Tweets From: ' + start_date.strftime("%B %d, %Y") + " To: " + end_date.strftime("%B %d, %Y"))
         plt.xlabel('Hour of Day')
-        plt.ylabel('Frequency')
+        plt.ylabel('Number of Tweets')
         plt.xticks(range(24))
         plt.plot(self.x, self.y)
         plt.savefig('graph.png')
