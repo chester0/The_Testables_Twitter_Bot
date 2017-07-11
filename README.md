@@ -1,4 +1,4 @@
-# FIT4004 Assignment 3 - Twitter Bot UnitTests
+# Twitter Bot
 Analyses tweets made by an individual, produces a graph showing
 frequency of tweeting at particular times of the day, and
 posts the graph as a tweet
@@ -51,4 +51,3 @@ Analysing and Building Graph...
 Tweeting...
 Finished!!
 ```
-
